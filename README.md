@@ -2,25 +2,6 @@
 
 # Realtek rtl8188eus &amp; rtl8188eu &amp; rtl8188etv WiFi drivers
 
-[![Monitor mode](https://img.shields.io/badge/monitor%20mode-supported-brightgreen.svg)](#)
-[![Frame Injection](https://img.shields.io/badge/frame%20injection-supported-brightgreen.svg)](#)
-[![MESH Mode](https://img.shields.io/badge/mesh%20mode-supported-brightgreen.svg)](#)
-[![GitHub issues](https://img.shields.io/github/issues/aircrack-ng/rtl8188eus.svg)](https://github.com/aircrack-ng/rtl8188eus/issues)
-[![GitHub forks](https://img.shields.io/github/forks/aircrack-ng/rtl8188eus.svg)](https://github.com/aircrack-ng/rtl8188eus/network)
-[![GitHub stars](https://img.shields.io/github/stars/aircrack-ng/rtl8188eus.svg)](https://github.com/aircrack-ng/rtl8188eus/stargazers)
-[![GitHub license](https://img.shields.io/github/license/aircrack-ng/rtl8812au.svg)](https://github.com/aircrack-ng/rtl8188eus/blob/master/LICENSE)<br>
-[![Android](https://img.shields.io/badge/android%20(8)-supported-brightgreen.svg)](#)
-[![aircrack-ng](https://img.shields.io/badge/aircrack--ng-supported-blue.svg)](#)
-
-
-# Supports
-* Android 12/13
-* MESH Support
-* Monitor mode
-* Frame injection
-* Up to kernel v6.0+
-... And a bunch of various wifi chipsets
-
 # Howto build/install
 1. You will need to blacklist another driver in order to use this one.
 2. `echo 'blacklist r8188eu'|sudo tee -a '/etc/modprobe.d/realtek.conf'`
@@ -41,6 +22,24 @@ Frame injection test may be performed with
 ```
 $ aireplay -9 <interface>
 ```
+
+## How to install (for arm devices)
+
+`sudo ln -s /lib/modules/$(uname -r)/build/arch/arm /lib/modules/$(uname -r)/build/arch/armv7l`
+
+`sudo apt-get install build-essential git dkms linux-headers-$(uname -r)`
+
+`git clone -b arm https://github.com/kelebek333/rtl8188fu rtl8188fu-arm`
+
+`sudo dkms add ./rtl8188fu-arm`
+
+`sudo dkms build rtl8188fu/1.0`
+
+`sudo dkms install rtl8188fu/1.0`
+
+`sudo cp ./rtl8188fu-arm/firmware/rtl8188fufw.bin /lib/firmware/rtlwifi/`
+
+------------------
 
 # NetworkManager configuration
 Add these lines below to "NetworkManager.conf" and ADD YOUR ADAPTER MAC below [keyfile]
